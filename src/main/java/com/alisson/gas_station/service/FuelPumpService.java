@@ -16,20 +16,20 @@ public class FuelPumpService {
         fuelPumpRepository.save(fuelPump);
     }
 
-    private FuelPump searchFuelPumpById(Integer id) {
+    public FuelPump searchFuelPumpById(Integer id) {
         return fuelPumpRepository
                 .findById(id)
                 .orElseThrow(() -> new NullPointerException("Fuel Pump not found by id" + id));
     }
 
     @Transactional
-    private void deleteFuelPumpById(Integer id) {
+    public void deleteFuelPumpById(Integer id) {
         fuelPumpRepository.deleteById(id);
     }
 
     /* todo: validate the data before update the database */
 
-    private void updateFuelPump(Integer id, FuelPump fuelPump) {
+    public void updateFuelPump(Integer id, FuelPump fuelPump) {
         FuelPump pump = searchFuelPumpById(id);
         fuelPump.setId(pump.getId());
 
