@@ -27,6 +27,10 @@ public class FuelTypeService {
 
     @Transactional
     public void deleteFuelTypeById(Integer id) {
+        fuelTypeRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fuel Type Id not found. Id: " + id)
+        );
+
         fuelTypeRepository.deleteById(id);
     }
 
