@@ -2,6 +2,7 @@ package com.alisson.gas_station.controller;
 
 import com.alisson.gas_station.infrastructure.entities.FuelType;
 import com.alisson.gas_station.service.FuelTypeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,8 @@ public class FuelTypeController {
     private final FuelTypeService fuelTypeService;
 
     @PostMapping
-    public ResponseEntity<FuelType> createFuelType(@RequestBody FuelType fuelType) {
+    public ResponseEntity<FuelType> createFuelType(@RequestBody @Valid FuelType fuelType) {
         FuelType createdFuelType = fuelTypeService.createFuelType(fuelType);
-
         URI location = URI.create("/fuel-type/" + createdFuelType.getId());
 
         return ResponseEntity.created(location).body(createdFuelType);
@@ -47,7 +47,7 @@ public class FuelTypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateFuelTypeById(@PathVariable("id") Integer id, @RequestBody FuelType fuelType) {
+    public ResponseEntity<Void> updateFuelTypeById(@PathVariable("id") Integer id, @RequestBody @Valid FuelType fuelType) {
         fuelTypeService.updateFuelType(id, fuelType);
 
         return ResponseEntity.noContent().build();
