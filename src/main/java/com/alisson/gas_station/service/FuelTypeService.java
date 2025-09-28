@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class FuelTypeService {
 
@@ -22,10 +23,10 @@ public class FuelTypeService {
 
     public FuelType findFuelTypeById(Integer id) {
         return fuelTypeRepository.findById(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fuel Type not found. Id: " + id));
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fuel Type not found. Id: " + id)
+        );
     }
 
-    @Transactional
     public void deleteFuelTypeById(Integer id) {
         fuelTypeRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fuel Type Id not found. Id: " + id)
